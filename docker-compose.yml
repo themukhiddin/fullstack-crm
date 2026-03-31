@@ -15,8 +15,8 @@ services:
 
   backend:
     build:
-      context: ./docker/php
-      dockerfile: Dockerfile
+      context: ./backend
+      dockerfile: ../docker/php/Dockerfile
     restart: unless-stopped
     volumes:
       - ./backend:/var/www
@@ -28,8 +28,8 @@ services:
 
   frontend:
     build:
-      context: ./docker/node
-      dockerfile: Dockerfile
+      context: ./frontend
+      dockerfile: ../docker/node/Dockerfile
     restart: unless-stopped
     volumes:
       - ./frontend:/app
