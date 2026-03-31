@@ -2,6 +2,8 @@
 
 Мини-CRM система: управление клиентами, сделками и задачами. Запускается одной командой.
 
+![Preview](preview.png)
+
 ## Стек
 
 - **Backend:** PHP 8.4, Laravel 13, Sanctum (cookie-based auth)

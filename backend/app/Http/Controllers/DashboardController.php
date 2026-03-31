@@ -21,8 +21,8 @@ class DashboardController extends Controller
                 'deals_won' => (float) $user->deals()->where('stage', 'won')->sum('amount'),
                 'tasks_todo' => $user->tasks()->where('status', 'todo')->count(),
                 'tasks_in_progress' => $user->tasks()->where('status', 'in_progress')->count(),
-                'recent_clients' => $user->clients()->latest()->take(5)->get(['id', 'name', 'company', 'status', 'created_at']),
-                'recent_deals' => $user->deals()->with('client:id,name')->latest()->take(5)->get(['id', 'title', 'amount', 'stage', 'client_id', 'created_at']),
+                'recent_clients' => $user->clients()->latest()->take(5)->get(['id', 'name', 'company', 'status', 'created_at'])->toArray(),
+                'recent_deals' => $user->deals()->with('client:id,name')->latest()->take(5)->get(['id', 'title', 'amount', 'stage', 'client_id', 'created_at'])->toArray(),
             ];
         });
 
