@@ -12,12 +12,13 @@ class AuthTest extends TestCase
 
     public function test_user_can_register(): void
     {
-        $response = $this->postJson('/api/auth/register', [
-            'name' => 'John',
-            'email' => 'john@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
-        ]);
+        $response = $this->withHeaders(['Referer' => 'http://localhost'])
+            ->postJson('/api/auth/register', [
+                'name' => 'John',
+                'email' => 'john@example.com',
+                'password' => 'password',
+                'password_confirmation' => 'password',
+            ]);
 
         $response->assertStatus(201)
             ->assertJsonStructure(['id', 'name', 'email']);
@@ -41,10 +42,11 @@ class AuthTest extends TestCase
     {
         $user = User::factory()->create(['password' => bcrypt('password')]);
 
-        $response = $this->postJson('/api/auth/login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
+        $response = $this->withHeaders(['Referer' => 'http://localhost'])
+            ->postJson('/api/auth/login', [
+                'email' => $user->email,
+                'password' => 'password',
+            ]);
 
         $response->assertOk()
             ->assertJsonStructure(['id', 'name', 'email']);
@@ -54,10 +56,11 @@ class AuthTest extends TestCase
     {
         $user = User::factory()->create(['password' => bcrypt('password')]);
 
-        $response = $this->postJson('/api/auth/login', [
-            'email' => $user->email,
-            'password' => 'wrong',
-        ]);
+        $response = $this->withHeaders(['Referer' => 'http://localhost'])
+            ->postJson('/api/auth/login', [
+                'email' => $user->email,
+                'password' => 'wrong',
+            ]);
 
         $response->assertStatus(422);
     }
@@ -66,7 +69,9 @@ class AuthTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson('/api/auth/logout');
+        $response = $this->actingAs($user)
+            ->withHeaders(['Referer' => 'http://localhost'])
+            ->postJson('/api/auth/logout');
 
         $response->assertOk();
     }

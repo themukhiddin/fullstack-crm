@@ -17,9 +17,9 @@ class ClientController extends Controller
             ->withCount(['deals', 'tasks'])
             ->when($request->status, fn ($q, $status) => $q->where('status', $status))
             ->when($request->search, fn ($q, $search) => $q->where(function ($q) use ($search) {
-                $q->where('name', 'ilike', "%{$search}%")
-                  ->orWhere('email', 'ilike', "%{$search}%")
-                  ->orWhere('company', 'ilike', "%{$search}%");
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('company', 'like', "%{$search}%");
             }))
             ->latest()
             ->paginate(15);
