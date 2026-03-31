@@ -4,6 +4,10 @@ import PrivateRoute from './components/PrivateRoute'
 import AppLayout from './components/AppLayout'
 import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
+import DashboardPage from './pages/dashboard/DashboardPage'
+import ClientsPage from './pages/clients/ClientsPage'
+import DealsPage from './pages/deals/DealsPage'
+import TasksPage from './pages/tasks/TasksPage'
 
 function App() {
   return (
@@ -19,10 +23,10 @@ function App() {
               </PrivateRoute>
             }
           >
-            <Route path="/" element={<div>Dashboard</div>} />
-            <Route path="/clients" element={<div>Clients</div>} />
-            <Route path="/deals" element={<div>Deals</div>} />
-            <Route path="/tasks" element={<div>Tasks</div>} />
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/clients" element={<ClientsPage />} />
+            <Route path="/deals" element={<DealsPage />} />
+            <Route path="/tasks" element={<TasksPage />} />
           </Route>
         </Routes>
       </AuthProvider>
